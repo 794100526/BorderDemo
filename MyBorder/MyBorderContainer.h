@@ -27,7 +27,12 @@ public:
     MyBorderContainer(QWidget *parent,uint16_t minWindowHeight = 50, uint16_t minWindowWidth = 50, uint16_t borderSize = 5);
     void setMinWindowSize(uint16_t minWindowWidth, uint16_t minWindowHeight); //设置窗口最小尺寸
     void setBorderSize(uint16_t borderSize);    //设置边框捕获区域尺寸
+    void DarwBorder(); //重新绘制边框（调整位置）
 
+protected:
+    void InitBorder(); //初始化边框
+
+private:
     void getLeftScaleEvent(QPoint movPoint);
 
     void getRightScaleEvent(QPoint movPoint);
@@ -43,14 +48,6 @@ public:
     void getLTScaleEvent(QPoint movPoint);
 
     void getLBScaleEvent(QPoint movPoint);
-
-protected:
-    void InitBorder(); //初始化边框
-    void DarwBorder(); //重新绘制边框（调整位置）
-
-
-
-private:
     //内部边框类，防止外部创建
     class MyBorder:public QLabel
     {
