@@ -19,24 +19,15 @@ enum BorderType
     RB_BORDER,      //右下
 };
 
-typedef void(__cdecl *CallBack)(QPoint point, BorderType type, void * contex);
 
 class MyBorderContainer : public QObject
 {
      Q_OBJECT
 public:
     MyBorderContainer(QWidget *parent,uint16_t minWindowHeight = 50, uint16_t minWindowWidth = 50, uint16_t borderSize = 5);
-    static void moveEvent(QPoint point, BorderType type, void * contex); //鼠标移动事件回调
     void setMinWindowSize(uint16_t minWindowWidth, uint16_t minWindowHeight); //设置窗口最小尺寸
     void setBorderSize(uint16_t borderSize);    //设置边框捕获区域尺寸
 
-protected:
-    void mousePressEvent(QMouseEvent *ev);
-    void mouseMoveEvent(QMouseEvent *ev);
-    void mouseReleaseEvent(QMouseEvent *ev);
-    void InitBorder(); //初始化边框
-    void DarwBorder(); //重新绘制边框（调整位置）
-private slots:
     void getLeftScaleEvent(QPoint movPoint);
 
     void getRightScaleEvent(QPoint movPoint);
@@ -53,51 +44,29 @@ private slots:
 
     void getLBScaleEvent(QPoint movPoint);
 
+protected:
+    void InitBorder(); //初始化边框
+    void DarwBorder(); //重新绘制边框（调整位置）
+
+
+
 private:
     //内部边框类，防止外部创建
     class MyBorder:public QLabel
     {
     public:
         //设置边框属性
-        MyBorder(QWidget *parent, BorderType type, CallBack callBack, void * contex):m_bKeepDrag(false)
-        {
-            this->setParent(parent);
-            MouseMoveCallBack = callBack;
-            MyType = type;
-            MyContex = contex;
-            if(MyType == L_BORDER || MyType == R_BORDER)
-            {
-                setCursor(Qt::SizeHorCursor);
-            }
-            else if(MyType == T_BORDER || MyType == B_BORDER)
-            {
-                setCursor(Qt::SizeVerCursor);
-            }
-            else if(MyType == LT_BORDER || MyType == RB_BORDER)
-            {
-                setCursor(Qt::SizeFDiagCursor);
-            }
-            else if(MyType == LB_BORDER || MyType == RT_BORDER)
-            {
-                setCursor(Qt::SizeBDiagCursor);
-            }
-            else
-            {
-                setCursor(Qt::ArrowCursor);
-            }
-        }
-        void setMousMoveCallBack(CallBack callBack, BorderType type, void * contex);
-protected:
+        MyBorder(QWidget *parent, BorderType type, MyBorderContainer * outClass);
+    protected:
         void mousePressEvent(QMouseEvent *ev);
         void mouseMoveEvent(QMouseEvent *ev);
         void mouseReleaseEvent(QMouseEvent *ev);
 
     private:
+        MyBorderContainer *container; //保存外部类指针
         BorderType MyType;
-        void *MyContex;
-        QPoint m_mousePointOld;
-        bool m_bKeepDrag;
-        void(*MouseMoveCallBack)(QPoint point, BorderType type, void * contex);
+        QPoint mousePointOld;
+        bool KeepDrag;
     };
 
     uint16_t borderSize; //边框捕获区大小

@@ -13,39 +13,39 @@ MyBorderContainer::MyBorderContainer(QWidget *parent,uint16_t minWindowHeight,ui
 void MyBorderContainer::InitBorder()
 {
     //上下左右的label，为了控制界面能够拖动拉伸
-    labelLft = new MyBorder(m_widget, L_BORDER, moveEvent, this);
+    labelLft = new MyBorder(m_widget, L_BORDER, this);
     labelLft->setStyleSheet("QLabel {background-color: transparent;}");//设置背景透明
     labelLft->raise();
 
 
-    labelRit = new MyBorder(m_widget,R_BORDER, moveEvent, this);
+    labelRit = new MyBorder(m_widget, R_BORDER, this);
     labelRit->setStyleSheet("QLabel {background-color: transparent;}");//设置背景透明
     labelRit->raise();
 
-    labelBot = new MyBorder(m_widget,B_BORDER, moveEvent, this);
+    labelBot = new MyBorder(m_widget, B_BORDER, this);
     labelBot->setStyleSheet("QLabel {background-color: transparent;}");//设置背景透明
     labelBot->raise();
 
-    labelTop = new MyBorder(m_widget,T_BORDER, moveEvent, this);
+    labelTop = new MyBorder(m_widget, T_BORDER, this);
     labelTop->setStyleSheet("QLabel {background-color: transparent;}");//设置背景透明
     labelTop->raise();
 
 
-    labelRB = new MyBorder(m_widget,RB_BORDER, moveEvent, this);
+    labelRB = new MyBorder(m_widget, RB_BORDER, this);
     labelRB->setStyleSheet("QLabel {background-color: transparent;}");//设置背景透明
     labelRB->raise();
 
 
-    labelRT = new MyBorder(m_widget,RT_BORDER, moveEvent, this);
+    labelRT = new MyBorder(m_widget, RT_BORDER, this);
     labelRT->setStyleSheet("QLabel {background-color: transparent;}");//设置背景透明
     labelRT->raise();
 
 
-    labelLB = new MyBorder(m_widget,LB_BORDER, moveEvent, this);
+    labelLB = new MyBorder(m_widget, LB_BORDER, this);
     labelLB->setStyleSheet("QLabel {background-color: transparent;}");//设置背景透明
     labelLB->raise();
 
-    labelLT = new MyBorder(m_widget,LT_BORDER, moveEvent, this);
+    labelLT = new MyBorder(m_widget, LT_BORDER, this);
     labelLT->setStyleSheet("QLabel {background-color: transparent;}");//设置背景透明
     labelLT->raise();
 
@@ -61,40 +61,6 @@ void MyBorderContainer::setMinWindowSize(uint16_t minWindowWidth, uint16_t minWi
 void MyBorderContainer::setBorderSize(uint16_t borderSize)
 {
     this->borderSize = borderSize;
-}
-
-//回调
-void MyBorderContainer::moveEvent(QPoint point, BorderType type, void * contex)
-{
-    MyBorderContainer *(border) = (MyBorderContainer *)contex;
-    switch (type) {
-    case L_BORDER: //左
-        border->getLeftScaleEvent(point);
-        break;
-    case R_BORDER: //右
-        border->getRightScaleEvent(point);
-        break;
-    case T_BORDER: //上
-        border->getTopScaleEvent(point);
-        break;
-    case B_BORDER: //上
-        border->getBottomScaleEvent(point);
-        break;
-    case RB_BORDER: //右下
-        border->getRBScaleEvent(point);
-        break;
-    case RT_BORDER: //右上
-        border->getRTScaleEvent(point);
-        break;
-    case LB_BORDER: //左下
-        border->getLBScaleEvent(point);
-        break;
-    case LT_BORDER: //左上
-        border->getLTScaleEvent(point);
-        break;
-    default:
-        break;
-    }
 }
 
 //重绘边框
