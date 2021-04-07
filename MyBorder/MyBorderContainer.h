@@ -73,9 +73,6 @@ private:
     uint16_t minWindowHeight; //最小窗口高度
     uint16_t minWindowWidth;   //最小窗口宽度
 
-    QPoint mousePointOld;
-    bool bKeepDrag;
-
     QWidget *m_widget;
     //边框控件
     MyBorder *labelLft;

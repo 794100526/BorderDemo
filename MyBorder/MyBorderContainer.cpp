@@ -1,7 +1,6 @@
 #include "MyBorderContainer.h"
 MyBorderContainer::MyBorderContainer(QWidget *parent,uint16_t minWindowHeight,uint16_t minWindowWidth, uint16_t borderSize)
 {
-    bKeepDrag = false;
     m_widget = parent;
     this->minWindowHeight = minWindowHeight; //最小窗口高度
     this->minWindowWidth = minWindowWidth;   //最小窗口宽度
